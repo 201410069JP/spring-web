@@ -4,6 +4,7 @@ import kr.ac.knu.domain.Board;
 import kr.ac.knu.repository.BoardRepository;
 import kr.ac.knu.repository.MybatisRepository;
 import kr.ac.knu.repository.MybatisRepositoryXml;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+@Slf4j
 
 /**
  * Created by rokim on 2017. 6. 9..

@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import javax.print.DocFlavor;
+
 /**
  * Created by rokim on 2017. 5. 31..
  */
@@ -47,9 +49,11 @@ public class WebConfigProfiles {
     @Profile({"!local"})
     public UserOperator facebookUserOperatorDev() {
         log.info("Created UserOperator for DEV");
+
         return new UserOperator() {
             @Override
             public KnuUser getKnuUserFromAccessToken(String accessToken) {
+                log.info("Authenticating login token: ",accessToken);
                 log.info("DEV!! : {}", accessToken);
                 FacebookUser facebookUser = createFacebookUser(accessToken);
                 if (facebookUser == null) {
@@ -67,6 +71,7 @@ public class WebConfigProfiles {
             facebookUser = facebookClient.callFacebookProfile(accessToken);
         } catch (Exception e) {
             log.error("Facebook Login fail [{}] : {}", accessToken, e.toString());
+            log.info("Authentication fail: token is invalid: ", accessToken);
         }
         return facebookUser;
     }
