@@ -1,5 +1,6 @@
 package kr.ac.knu.controller;
 
+import com.sun.org.apache.xerces.internal.impl.dv.xs.YearMonthDV;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import kr.ac.knu.domain.Board;
@@ -26,6 +27,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
+
+import java.time.Year;
 
 /**
  * Created by rokim on 2017. 5. 30..
@@ -62,12 +65,14 @@ public class BoardController {
     @PostMapping(value = "/v1/boards")
     @ResponseStatus(HttpStatus.CREATED)
     public void createBoard(@RequestBody BoardDTO boardDTO, @ApiIgnore @AuthenticationPrincipal KnuUser knuUser) {
+        log.info("JunPyo Kim is updating board...title: "+ boardDTO );
         boardService.insertBoard(knuUser, boardDTO);
     }
 
     @PutMapping(value = "/v1/boards/{idx}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateBoard(@PathVariable int idx, @RequestBody BoardDTO boardDTO, @ApiIgnore @AuthenticationPrincipal KnuUser knuUser) {
+        log.info("Updated result : title: "+ boardDTO);
         boardService.updateBoard(knuUser, idx, boardDTO);
     }
 
